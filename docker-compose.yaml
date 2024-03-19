@@ -1,0 +1,52 @@
+version: "3.8"
+
+# Setting-up 3 containers:
+# - db: postgres database
+# - pgadmin: to interact with DB
+# - api: weatherservice API
+
+services:
+  db:
+    container_name: postgresql_db
+    image: postgres:16.2-bullseye
+    environment:
+      - POSTGRES_DB=weather_app_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - 5050:80
+    depends_on:
+        - db
+
+  api:
+    container_name: api
+    build: .
+    environment:
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_HOST=db
+      - DB_NAME=weather_app_db
+      - DB_PORT=5432
+      - OPENWEATHER_API_KEY= # Add your API key
+    command: sh -c "sleep 2 && uvicorn app.main:app --reload --host 0.0.0.0"
+    ports:
+      - 8000:8000
+    restart: always
+    depends_on:
+      - db
+    volumes: 
+      - .:/app
+
+# Infra considerations:
+# In a true prod app, I'd want to configure an automated ci/cd pipeline using IaC tools like aws cdk, terraform, etc.
