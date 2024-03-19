@@ -93,6 +93,10 @@ and then run
 
 ```sh
 docker compose up
+
+# NOTE: You may encounter a transient sqlalchemy error - 
+ "sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) connection to server at "db" (172.25.0.2), port 5432 failed: Connection refused"
+# To fix it, don't stop docker, just go to any file and hit save to reload the api server
 ```
 FastAPI docs - navigate to `http://127.0.0.1:8000/docs`
 
@@ -105,7 +109,7 @@ DB_PASSWORD=password
 DB_HOST=localhost
 DB_NAME=weather_app_db
 DB_PORT=5432
-OPENWEATHER_API_KEY
+OPENWEATHER_API_KEY= # Add your API key 
 ```
 
 and run
