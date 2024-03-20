@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 class WeatherClient:
     BASE_URL_CURRENT = "https://api.openweathermap.org/data/3.0/onecall"
     BASE_URL_HISTORICAL = "https://api.openweathermap.org/data/3.0/onecall/timemachine"
@@ -20,17 +21,20 @@ class WeatherClient:
             "lat": lat,
             "lon": lon,
             "appid": self.api_key,
-            "exclude": "minutely,hourly,daily,alerts" # FUTURE: use forcast for insights and alerts
+            # FUTURE: use forcast for insights and alerts
+            "exclude": "minutely,hourly,daily,alerts"
         }
 
         response = requests.get(self.BASE_URL_CURRENT, params=params)
         data = response.json()
 
         if response.status_code != status.HTTP_200_OK:
-            raise HTTPException(status_code=response.status_code, detail=data.get("message", "Unknown error"))
+            raise HTTPException(status_code=response.status_code,
+                                detail=data.get("message", "Unknown error"))
 
         current_weather = schemas.WeatherInfoRequest(
-            timestamp=data['current']['dt'], # for current weather, we don't have a timestamp, so we use the current time
+            # for current weather, we don't have a timestamp, so we use the current time
+            timestamp=data['current']['dt'],
             temperature=data['current']['temp'],
             description=data['current']['weather'][0]['description'],
             main_weather=data['current']['weather'][0]['main'],
@@ -59,7 +63,8 @@ class WeatherClient:
             if response.status_code == status.HTTP_404_NOT_FOUND:
                 return None
             else:
-                raise HTTPException(status_code=response.status_code, detail=data.get("message", "No data for the given date"))
+                raise HTTPException(status_code=response.status_code, detail=data.get(
+                    "message", "No data for the given date"))
 
         historical_weather = schemas.WeatherInfoRequest(
             timestamp=data['data'][0]['dt'],
