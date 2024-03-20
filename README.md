@@ -38,7 +38,7 @@ We are only allowed to use the two mentioned APIs + Geocoding API mentioned in t
     - As a user, I would like to search weather data by city, to view current weather, weather icon, lat and long of city
     - As a user, I would like to select multiple cities, to get bulk data
 - Historic Weather info
-    - As a user, I would like to get historic data by selecting a date
+    - As a user, I would like to see the historic weather data of my selected cities.
 - Raw Json
     - As a user, I want to view the raw API output as JSON, to explore it
 - Excel Download
@@ -55,10 +55,10 @@ Future Ideas should be iterated on based on user signal and where we want to sha
 All of the descoped best practices should be worked on.
 
 Small
+- Implement endpoints to get historic and current weather only a single city to reduce number of API calls
 - Show additional data like sunrise, sunset etc based on user needs
 - Allow users to select fields they want as part of the excel
 - Allow users to estimate and see the cost of the data (based on API costs)
-- Allow users to delete rows
 - Use Google's autocomplete to help user find city vs. having multiple selection
 
 Medium
@@ -66,11 +66,11 @@ Medium
 - Have a notion of "saved filters / segments"
 - Export data using other export formats 
 - Deep link different search results for easy sharability
-- Incorporate User Session data like click events etc (tools like Fullstory)
-- Show graphs / charts + Weather insights
+- Incorporate User Session data like click events etc (tools like Fullstory) for better iterations
+- Show graphs / charts + Weather insights that are frequently needed.
 
 Large
-- Prewritten email summaries of data downlaoded / selected
+- Prewritten AI generated email summaries of data downlaoded / selected
 - Show how and what data was used in other similar deals
 - Use LangChain to give users ability to interact with and gain insight from excel data like chatgpt
 - Show Weather insights and live trails
