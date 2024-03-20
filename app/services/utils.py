@@ -12,8 +12,8 @@ class Utils:
         elif scale.upper() == 'F':
             return Utils._kelvin_to_fahrenheit(kelvin_temp)
         else:
-            raise ValueError("Invalid scale. Please specify 'C' for Celsius or 'F' for Fahrenheit.")
-        
+            raise ValueError(
+                "Invalid scale. Please specify 'C' for Celsius or 'F' for Fahrenheit.")
 
     @staticmethod
     def _kelvin_to_celsius(kelvin_temp):

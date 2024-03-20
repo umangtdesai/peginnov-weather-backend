@@ -8,6 +8,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # FUTURE: base client that initializes the API key and loads env vars there
+
+
 class GeocodingClient:
     BASE_URL = "http://api.openweathermap.org/geo/1.0/direct"
     DEFAULT_LIMIT = 3
@@ -25,13 +27,15 @@ class GeocodingClient:
 
         response = requests.get(self.BASE_URL, params=params)
         data = response.json()
-        
+
         if response.status_code != status.HTTP_200_OK:
-            raise HTTPException(status_code=response.status_code, detail=data.get("message", "Unknown error"))
-        
+            raise HTTPException(status_code=response.status_code,
+                                detail=data.get("message", "Unknown error"))
+
         cities = []
         for city in data:
-            new_city = schemas.City(name=city['name'], country=city['country'], lat=city['lat'], lon=city['lon'],)
+            new_city = schemas.City(
+                name=city['name'], country=city['country'], lat=city['lat'], lon=city['lon'],)
             cities.append(new_city)
-        
+
         return cities

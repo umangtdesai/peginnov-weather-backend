@@ -2,6 +2,7 @@ from typing import List
 from ..clients.geocoding_client import GeocodingClient
 from app import schemas
 
+
 class GeocodingService():
     client = GeocodingClient()
 

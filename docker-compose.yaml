@@ -38,7 +38,7 @@ services:
       - DB_HOST=db
       - DB_NAME=weather_app_db
       - DB_PORT=5432
-      - OPENWEATHER_API_KEY= # Add your API key
+      - OPENWEATHER_API_KEY= # Add API key here
     command: sh -c "sleep 2 && uvicorn app.main:app --reload --host 0.0.0.0"
     ports:
       - 8000:8000
